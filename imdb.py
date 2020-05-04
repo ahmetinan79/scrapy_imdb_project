@@ -4,7 +4,7 @@ from ..items import ImdbItem  # Import the class from items.py.
 class ImdbSpider(scrapy.Spider):
     name = 'imdb'  # Define a variable for the project.
     # Define the main web address to extract info.
-    start_urls = ["https://www.imdb.com/list/ls004610270/?st_dt=&mode=detail&page=1&sort=list_order,asc&ref_=ttls_vm_dtlhttps://www.imdb.com/list/ls004610270/?st_dt=&mode=detail&page=1&sort=list_order,asc&ref_=ttls_vm_dtl"]
+    start_urls = ["https://www.imdb.com/list/ls004610270/?st_dt=&mode=detail&page=1&sort=list_order,asc&ref_=ttls_vm_dtl"]
 
     def parse(self, response):
 
@@ -27,7 +27,7 @@ class ImdbSpider(scrapy.Spider):
         # Define variables for each feature, use scrapy.css selector to get the necessary info and
         # use properties and methods such as indexing, slicing, split and strip.
         film_name = response.css('div.title_wrapper h1::text').extract()[0].strip()
-        film_date = str(response.css('div.subtext a::text').getall()[-1]).split('(')[0].strip()
+        film_date = response.css('div.subtext a::text').getall()[-1]).strip().split('(')[0]
         film_country = response.css('div.subtext a::text').getall()[-1].strip(')\n').split('(')[-1]
         film_rate = response.css('div.ratingValue span::text').extract()[0]
         director = response.css('div.credit_summary_item a::text').extract()[0]
